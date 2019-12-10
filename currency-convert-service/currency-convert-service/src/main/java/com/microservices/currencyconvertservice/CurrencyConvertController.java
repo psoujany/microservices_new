@@ -19,9 +19,6 @@ public class CurrencyConvertController {
 	@Autowired
 	private CurrencyManageServiceProxy proxy;
 	
-	@Autowired
-	private CurrencyConvertDelegate currencyConvertDelegate;
-	
 	@GetMapping("/currency-convert/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConvertBean convertCurrency(@PathVariable String from, @PathVariable String to,
 													@PathVariable BigDecimal quantity) {
@@ -48,10 +45,4 @@ public class CurrencyConvertController {
 		return new CurrencyConvertBean(response.getId(),from,to,quantity,response.getConversionMultiple(),quantity.multiply(response.getConversionMultiple()),response.getPort());
 		
 	}
-	
-	@RequestMapping(value = "/currency-convert/from/{from}", method = RequestMethod.GET)
-    public String getCountry(@PathVariable String from) {
-        System.out.println("Going to call currency convert service to get data!");
-        return currencyConvertDelegate.callCurrencyManageService(from);
-    }
 }
